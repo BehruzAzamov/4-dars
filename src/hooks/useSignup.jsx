@@ -4,6 +4,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig.js";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function useSignup() {
   const [user, setUser] = useState(null);
@@ -15,6 +17,7 @@ function useSignup() {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        <Navigate/>
       })
       .catch((error) => {
         const errorCode = error.code

@@ -1,9 +1,10 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
-
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
+import { useSignup } from "./hooks/useSignup";
 // Pages
-import { Cart, Checkout, HomeLayout, Landing, Orders, Products, SingleProduct, Login, Register, Error,About } from "./pages"
+import { Cart, Checkout, HomeLayout, Landing, Orders, Products, SingleProduct, Login, Register, Error, About } from "./pages"
 
 function App() {
+  const { signUpWithGoogle, user, error } = useSignup()
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -11,7 +12,7 @@ function App() {
       errorElement: <Error />,
       children: [
         {
-          index: true,
+          index: user,
           element: <Landing />
         },
         {
@@ -35,8 +36,8 @@ function App() {
           element: <Orders />
         },
         {
-          path:"/about",
-          element:<About/>
+          path: "/about",
+          element: <About />
         }
       ]
     },
@@ -47,7 +48,7 @@ function App() {
     },
     {
       path: "/register",
-      element: <Register />,
+      element:user ? <Navigate to="/"/> : <Register/>,
       errorElement: <Error />,
     },
   ]);
