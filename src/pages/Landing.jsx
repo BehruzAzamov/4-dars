@@ -1,8 +1,12 @@
+import Hero from "../components/Hero"
 import ProductDetails from "./ProductList"
 
 function Landing() {
   return (
-    <ProductDetails/>
+    <div>
+      <Hero/>
+      <ProductDetails/>
+    </div>
   )
 }
 
