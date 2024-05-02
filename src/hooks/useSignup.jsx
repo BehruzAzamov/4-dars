@@ -1,32 +1,23 @@
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  updateProfile,
-} from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig.js";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState } from 'react';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
-function useSignup() {
-  const [user, setUser] = useState(null);
+export const useSignup = () => {
   const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
 
-  const signUpWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        <Navigate/>
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message;
-        setError(errorMessage);
-      });
+  const signup = async (email, password) => {
+    setError(null);
+    setIsPending(true);
+
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsPending(false);
+    }
   };
 
-  return { signUpWithGoogle, user, error };
-}
-
-export { useSignup };
+  return { error, isPending, signup };
+};
