@@ -12,7 +12,7 @@ function App() {
       errorElement: <Error />,
       children: [
         {
-          index: user,
+          index: true,
           element: <Landing />
         },
         {

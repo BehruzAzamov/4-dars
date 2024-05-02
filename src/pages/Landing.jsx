@@ -1,6 +1,8 @@
+import ProductDetails from "./ProductList"
+
 function Landing() {
   return (
-    <div>Landing</div>
+    <ProductDetails/>
   )
 }
 
